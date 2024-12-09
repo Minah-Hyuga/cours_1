@@ -1,0 +1,77 @@
+@startuml
+
+interface IClientRepository {
+    +List<Client> SelectAll()
+    +Client SelectById(int id)
+    +void Insert(Client client)
+    +void Update(Client client)
+    +void Delete(int id)
+}
+
+class ClientRepositoryImpl {
+    +List<Client> clients
+    +List<Client> SelectAll()
+    +Client SelectById(int id)
+    +void Insert(Client client)
+    +void Update(Client client)
+    +void Delete(int id)
+}
+
+class Client {
+    -int id
+    -String surnom
+    -String telephone
+    -String adresse
+    -static int count
+    +Client()
+    +int getId()
+    +void setId(int id)
+    +String getSurnom()
+    +void setSurnom(String surnom)
+    +String getTelephone()
+    +void setTelephone(String telephone)
+    +String getAdresse()
+    +void setAdresse(String adresse)
+    +String ToString()
+    +boolean equals(Client other)
+}
+
+class RS {
+    -int id
+    -String email
+    +void AddClient(Client client)
+    +void UpdateClient(Client client)
+    +void DeleteClient(int clientId)
+}
+
+class Comptable {
+    -int id
+    -String email
+    +void AddClient(Client client)
+    +void UpdateClient(Client client)
+    +void DeleteClient(int clientId)
+}
+
+class IClientService {
+    +List<Client> FindAll()
+    +Client FindById(int id)
+    +void Save(Client client)
+    +void Delete(int id)
+    +void Update(Client client)
+}
+
+class ClientServiceImpl {
+    +IClientRepository clientRepository
+    +List<Client> FindAll()
+    +Client FindById(int id)
+    +void Save(Client client)
+    +void Delete(int id)
+    +void Update(Client client)
+}
+
+RS --|> Client : manages
+Comptable --|> Client : manages
+IClientRepository <|.. ClientRepositoryImpl
+IClientService <|.. ClientServiceImpl
+
+@enduml
